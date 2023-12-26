@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -16,7 +15,7 @@ return new class extends Migration
             $table->string('nama');
             $table->string('alamat');
             $table->integer('no_hp');
-            $table->string('id_poli');
+            $table->foreignId('id_poli')->constrained('poli');
         });
     }
 
