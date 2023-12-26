@@ -21,6 +21,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        \Auth::provider('static-admin', function ($app, array $config) {
+            return new StaticAdminUserProvider();
+        });
     }
 }
