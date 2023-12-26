@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class DaftarPoli extends Model
 {
     use HasFactory;
+
+    protected $table = 'daftar_poli';
+
+    public $timestamps = false;
 }

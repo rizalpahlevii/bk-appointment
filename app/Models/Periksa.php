@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Periksa extends Model
 {
     use HasFactory;
+
+    protected $table = 'periksa';
+
+    public $timestamps = false;
 }
