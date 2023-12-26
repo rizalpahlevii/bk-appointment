@@ -34,7 +34,8 @@ class AuthController extends Controller
             if ($this->attemptLoginAdmin($request)) {
                 $user = new UserDTO('admin', 'admin');
                 session(['user' => $user]);
-                return redirect()->route('dashboard');
+                return redirect()->route('dashboard')
+                    ->with('success', 'Selamat datang, Admin!');
             }
             return redirect()->back()->withInput()->withErrors([
                 'email' => 'Kredensial yang Anda masukkan salah.',
@@ -45,7 +46,8 @@ class AuthController extends Controller
             if ($dokter = $this->attemptLoginDokter($request)) {
                 $user = new UserDTO('dokter', $dokter->id);
                 session(['user' => $user]);
-                return redirect()->route('dashboard');
+                return redirect()->route('dashboard')
+                    ->with('success', 'Selamat datang, Dokter ' . $dokter->nama . '!');
             }
 
             return redirect()->back()->withInput()->withErrors([
@@ -56,7 +58,8 @@ class AuthController extends Controller
         if ($pasien = $this->attemptLoginPasien($request)) {
             $user = new UserDTO('pasien', $pasien->id);
             session(['user' => $user]);
-            return redirect()->route('dashboard');
+            return redirect()->route('dashboard')
+                ->with('success', 'Selamat datang, Pasien ' . $pasien->nama . '!');
         }
 
         return redirect()->back()->withInput()->withErrors([
