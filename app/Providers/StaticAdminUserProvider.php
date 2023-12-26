@@ -9,12 +9,17 @@ class StaticAdminUserProvider implements UserProvider
 {
     public function retrieveById($identifier)
     {
-        return $this->retrieveByCredentials([]);
+        return null;
+    }
+
+    public function retrieveByToken($identifier, $token): ?Authenticatable
+    {
+        return null;
     }
 
     public function retrieveByCredentials(array $credentials): ?Authenticatable
     {
-        if ($credentials['username'] === 'admin' && $credentials['password'] === 'admin') {
+        if (isset($credentials['username'], $credentials['password']) && $credentials['username'] === 'admin' && $credentials['password'] === 'admin') {
             return new class implements Authenticatable {
                 public function getAuthIdentifierName()
                 {
@@ -47,11 +52,6 @@ class StaticAdminUserProvider implements UserProvider
         return null;
     }
 
-    public function retrieveByToken($identifier, $token)
-    {
-        return $this->retrieveByCredentials([]);
-    }
-
     public function updateRememberToken(Authenticatable $user, $token)
     {
         return null;
@@ -59,7 +59,7 @@ class StaticAdminUserProvider implements UserProvider
 
     public function validateCredentials(Authenticatable $user, array $credentials)
     {
-        return $credentials['username'] === $user->getAuthIdentifier() &&
-            $credentials['password'] === $user->getAuthPassword();
+        return $credentials['username'] === 'admin' &&
+            $credentials['password'] === 'admin';
     }
 }

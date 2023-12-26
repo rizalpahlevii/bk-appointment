@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\DTOs\UserDTO;
+use App\Models\Dokter;
+use App\Models\Pasien;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
@@ -13,15 +17,23 @@ class AuthController extends Controller
 
     public function login()
     {
+        if (session()->has('user')) {
+            return redirect()->route('dashboard');
+        }
+
         return view('pages.login');
     }
 
-    public function attemptLogin(Request $request)
+    public function attemptLogin(Request $request): RedirectResponse
     {
+        if (session()->has('user')) {
+            return redirect()->route('dashboard');
+        }
         $type = $request->input('type');
-
         if ($type === 'admin') {
             if ($this->attemptLoginAdmin($request)) {
+                $user = new UserDTO('admin', 'admin');
+                session(['user' => $user]);
                 return redirect()->route('dashboard');
             }
             return redirect()->back()->withInput()->withErrors([
@@ -30,7 +42,9 @@ class AuthController extends Controller
         }
 
         if ($type === 'dokter') {
-            if ($this->attemptLoginDokter($request)) {
+            if ($dokter = $this->attemptLoginDokter($request)) {
+                $user = new UserDTO('dokter', $dokter->id);
+                session(['user' => $user]);
                 return redirect()->route('dashboard');
             }
 
@@ -39,7 +53,9 @@ class AuthController extends Controller
             ]);
         }
 
-        if ($this->attemptLoginPasien($request)) {
+        if ($pasien = $this->attemptLoginPasien($request)) {
+            $user = new UserDTO('pasien', $pasien->id);
+            session(['user' => $user]);
             return redirect()->route('dashboard');
         }
 
@@ -50,28 +66,29 @@ class AuthController extends Controller
 
     private function attemptLoginAdmin(Request $request): bool
     {
-        return \Auth::guard('admin')->attempt(
-            $request->only('username', 'password')
-        );
+        return $request->input('username') === 'admin' && $request->input('password') === 'admin';
     }
 
-    private function attemptLoginDokter(Request $request): bool
+    private function attemptLoginDokter(Request $request): ?Dokter
     {
-        return \Auth::guard('dokter')->attempt(
-            $request->only('nama', 'no_hp')
-        );
+        return Dokter::where('nama', $request->input('nama'))
+            ->where('no_hp', $request->input('no_hp'))
+            ->first();
     }
 
-    private function attemptLoginPasien(Request $request): bool
+    private function attemptLoginPasien(Request $request): ?Pasien
     {
-        return \Auth::guard('pasien')->attempt(
-            $request->only('nama', 'no_ktp')
-        );
+        return Pasien::where('nama', $request->input('nama'))
+            ->where('no_ktp', $request->input('no_ktp'))
+            ->first();
     }
 
-    public function logout()
+    public function logout(): RedirectResponse
     {
-        \Auth::logout();
+        if (!session()->has('user')) {
+            return redirect()->route('login');
+        }
+        session()->flush();
         return redirect()->route('login');
     }
 }

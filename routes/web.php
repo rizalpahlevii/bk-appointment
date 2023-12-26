@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['my-auth'])->group(function () {
     Route::get('/', function () {
         return view('welcome');
     })->name('dashboard');
@@ -23,4 +23,4 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('login', [AuthController::class, 'attemptLogin'])->name('login');
-Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('logout', [AuthController::class, 'logout'])->name('logout');

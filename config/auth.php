@@ -72,10 +72,6 @@ return [
     */
 
     'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\User::class,
-        ],
         'pasiens' => [
             'driver' => 'eloquent',
             'model' => App\Models\Pasien::class,

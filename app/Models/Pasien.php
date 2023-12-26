@@ -2,14 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Pasien extends Model
+class Pasien extends Authenticatable
 {
-    use HasFactory;
-
-    protected $table = 'pasien';
-
     public $timestamps = false;
+    protected $table = 'pasien';
 }
