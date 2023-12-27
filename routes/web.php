@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ObatController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +20,7 @@ Route::middleware(['my-auth'])->group(function () {
         return view('pages.dashboard');
     })->name('dashboard');
 
+    Route::resource('obat', ObatController::class);
 });
 
 Route::get('login', [AuthController::class, 'login'])->name('login');
