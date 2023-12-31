@@ -31,7 +31,44 @@
                             </div>
                         </div>
                         <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-bordered table-striped table-hover ">
+                                        <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Nama Pasien</th>
+                                            <th>No RM Pasien</th>
+                                            <th>Waktu</th>
+                                            <th>Keluhan</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($daftarPoli as $item)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $item->pasien->nama }}</td>
+                                                <td>{{ $item->pasien->no_rm }}</td>
+                                                <td>{{ $item->jadwal->hari }}, {{ $item->jadwal->jam_mulai }}
+                                                    - {{ $item->jadwal->jam_selesai }}</td>
+                                                <td>{{ $item->keluhan }}</td>
+                                                <td>
+                                                    @if($item->periksa()->exists())
+                                                        <a href=""
+                                                           class="btn btn-sm btn-success">Detail</a>
+                                                    @else
+                                                        <a href=""
+                                                           class="btn btn-sm btn-success">Periksa</a>
+                                                    @endif
+                                                </td>
+                                            </tr>
 
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
