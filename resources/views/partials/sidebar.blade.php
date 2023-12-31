@@ -48,7 +48,7 @@
 
                 @if(isDokter())
                     <li class="nav-item">
-                        <a href="{{route('logout')}}" class="nav-link">
+                        <a href="{{route('periksa.index')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                                 Periksa
@@ -56,7 +56,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('logout')}}" class="nav-link">
+                        <a href="{{route('riwayat-pasien.index')}}" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                                 Riwayat Pasien
