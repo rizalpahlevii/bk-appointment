@@ -13,8 +13,9 @@ return new class extends Migration {
         Schema::create('dokter', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
+            $table->string('password');
             $table->string('alamat');
-            $table->integer('no_hp');
+            $table->string('no_hp');
             $table->foreignId('id_poli')->constrained('poli');
         });
     }

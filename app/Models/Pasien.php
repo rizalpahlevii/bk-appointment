@@ -7,10 +7,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Pasien extends Authenticatable
 {
     public $timestamps = false;
+    
     protected $table = 'pasien';
 
     protected $fillable = [
-        'nama', 'alamat', 'no_hp', 'no_ktp', 'no_rm',
+        'nama', 'alamat', 'no_ktp', 'no_hp', 'no_rm', 'password'
     ];
 
     public static function generateRM(): string
