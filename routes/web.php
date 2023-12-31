@@ -5,6 +5,7 @@ use App\Http\Controllers\DaftarController;
 use App\Http\Controllers\DaftarPoliController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\JsonController;
 use App\Http\Controllers\ObatController;
 use App\Http\Controllers\PeriksaController;
 use App\Http\Controllers\RiwayatPasienController;
@@ -38,3 +39,7 @@ Route::middleware(['my-auth'])->group(function () {
 Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('login', [AuthController::class, 'attemptLogin'])->name('login');
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::prefix('json')->group(function () {
+    Route::get('poli/{id}/jadwal', [JsonController::class, 'getJadwalByPoliId'])->name('json.poli.jadwal');
+});

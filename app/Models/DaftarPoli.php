@@ -2,14 +2,42 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class DaftarPoli extends Model
 {
-    use HasFactory;
+
+    public $timestamps = false;
 
     protected $table = 'daftar_poli';
 
-    public $timestamps = false;
+    protected $fillable = [
+        'id_pasien',
+        'id_jadwal',
+        'keluhan',
+        'no_antrian',
+    ];
+
+    public static function generateNoAntrian(mixed $input)
+    {
+        $lastAntrian = self::where('id_jadwal', $input)->orderBy('id', 'desc')->first();
+        if (!$lastAntrian) {
+            return 1;
+        }
+        $lastId = $lastAntrian->no_antrian;
+        $lastId = explode('-', $lastId)[1];
+        $lastId = (int)$lastId;
+        $lastId++;
+        return $lastId;
+    }
+
+    public function pasien()
+    {
+        return $this->belongsTo(Pasien::class, 'id_pasien');
+    }
+
+    public function jadwal()
+    {
+        return $this->belongsTo(JadwalPeriksa::class, 'id_jadwal');
+    }
 }

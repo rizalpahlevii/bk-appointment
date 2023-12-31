@@ -4,88 +4,73 @@
 @section('content')
     <div class="row">
         <div class="col-md-6 offset-md-3">
-            <div class="card mt-5">
+            <div class="card mt-2">
                 <div class="card-header">
                     Pendaftaran Poli
                 </div>
                 <div class="card-body">
-                    @if(session('success'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <strong>Sukses!</strong> {{session('success')}}<br><br>
-
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                        </div>
-                    @endif
-                    @if($errors->any())
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <strong>Whoops!</strong> Terjadi kesalahan saat input data.<br><br>
-                            <ul class="mb-0">
-                                @foreach($errors->all() as $error)
-                                    <li>{{$error}}</li>
-                                @endforeach
-                            </ul>
-
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                        </div>
-                    @endif
 
                     <div class="row">
                         <div class="col-md-12">
                             <form action="{{route('daftar-poli.store')}}" method="post">
                                 @csrf
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="no_rm">Nomor Rekam Medis</label>
-                                            <input type="text" class="form-control" id="no_rm" required
-                                                   name="no_rm" placeholder="Nomor Rekam Medis">
-                                        </div>
+                                <div class="mb-1">
+                                    <label for="no_rm" class="form-label">Nomor Rekam Medis</label>
+                                    <input type="text" class="form-control @error('no_rm') is-invalid @enderror"
+                                           id="no_rm" placeholder="Nomor Rekam Medis" name="no_rm">
+                                    @error('no_rm')
+                                    <div class="invalid-feedback">
+                                        {{$message}}
                                     </div>
+                                    @enderror
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="poli_id">Poli</label>
-                                            <select name="poli_id" id="poli_id" class="form-control">
-                                                <option value="">Pilih Poli</option>
-                                                @foreach(Poli::get() as $poli)
-                                                    <option value="{{$poli->id}}">{{$poli->nama_poli}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
+
+                                <div class="mb-1">
+                                    <label for="id_poli" class="form-label">Poli</label>
+                                    <select name="id_poli" id="id_poli"
+                                            class="form-control @error('id_poli') is-invalid @enderror">
+                                        <option value="">Pilih Poli</option>
+                                        @foreach($poli as $_poli)
+                                            <option value="{{$_poli->id}}">{{$_poli->nama_poli}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('id_poli')
+                                    <div class="invalid-feedback">
+                                        {{$message}}
                                     </div>
+                                    @enderror
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="jadwal_id">Jadwal</label>
-                                            <select name="jadwal_id" id="jadwal_id" class="form-control">
-                                                <option value="">Pilih Jadwal</option>
-                                                <option value="1">Senin, 08.00 - 10.00</option>
-                                                <option value="2">Selasa, 08.00 - 10.00</option>
-                                                <option value="3">Rabu, 08.00 - 10.00</option>
-                                                <option value="4">Kamis, 08.00 - 10.00</option>
-                                            </select>
-                                        </div>
+
+
+                                <div class="mb-1">
+                                    <label for="id_jadwal" class="form-label">Jadwal</label>
+                                    <select name="id_jadwal" id="id_jadwal"
+                                            class="form-control @error('id_jadwal') is-invalid @enderror">
+                                        <option value="">Pilih Jadwal</option>
+
+                                    </select>
+                                    @error('id_jadwal')
+                                    <div class="invalid-feedback">
+                                        {{$message}}
                                     </div>
+                                    @enderror
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="keluhan">Keluhan</label>
-                                            <input type="text" class="form-control" id="keluhan" required
-                                                   name="keluhan" placeholder="Keluhan">
-                                        </div>
+
+                                <div class="mb-1">
+                                    <label for="keluhan" class="form-label">Keluhan</label>
+                                    <input type="text" class="form-control @error('keluhan') is-invalid @enderror"
+                                           id="keluhan" placeholder="Keluhan" name="keluhan">
+                                    @error('no_rm')
+                                    <div class="invalid-feedback">
+                                        {{$message}}
                                     </div>
+                                    @enderror
                                 </div>
+
+
                                 <div class="row mt-2">
                                     <div class="col-md-12">
-                                        <input type="submit" value="Simpan" class="btn btn-sm btn-primary">
-                                        <a href="{{route('login',['type'=>'pasien'])}}" class="btn btn-sm btn-success">
-                                            Sudah punya akun? Login
-                                        </a>
+                                        <input type="submit" value="Daftar" class="btn btn-sm btn-primary">
                                     </div>
                                 </div>
                             </form>
@@ -95,5 +80,28 @@
             </div>
         </div>
     </div>
-
 @endsection
+
+@push('script')
+    <script>
+        const poliElement = document.getElementById('id_poli');
+        poliElement.addEventListener('change', function (e) {
+            const poliId = e.target.value;
+            const jadwalElement = document.getElementById('id_jadwal');
+            jadwalElement.innerHTML = '';
+            if (poliId === '') {
+                jadwalElement.innerHTML = '<option value="">Pilih Jadwal</option>';
+                return;
+            }
+            let url = `{{route('json.poli.jadwal', ':id')}}`;
+            url = url.replace(':id', poliId);
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    data.data.forEach(jadwal => {
+                        jadwalElement.innerHTML += `<option value="${jadwal.id}">${jadwal.hari}, ${jadwal.jam_mulai} - ${jadwal.jam_selesai}</option>`;
+                    });
+                });
+        });
+    </script>
+@endpush

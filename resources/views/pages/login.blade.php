@@ -59,7 +59,7 @@
                 @elseif ($type === "pasien")
                     <input type="hidden" name="type" value="pasien">
                     <div class="input-group mb-3">
-                        <input type="tel" class="form-control" placeholder="Nama" name="nama" required>
+                        <input type="tel" class="form-control" placeholder="Nomor Rekam Medis" name="no_rm" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -67,7 +67,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="No KTP" name="no_ktp" required>
+                        <input type="password" class="form-control" placeholder="Password" name="password" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>

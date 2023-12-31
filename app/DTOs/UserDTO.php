@@ -6,7 +6,7 @@ class UserDTO
 {
     public function __construct(
         public string $type,
-        public string $identifierID
+        public        $data
     )
     {
     }

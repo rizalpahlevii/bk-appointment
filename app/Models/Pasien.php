@@ -7,7 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Pasien extends Authenticatable
 {
     public $timestamps = false;
-    
+
     protected $table = 'pasien';
 
     protected $fillable = [
@@ -26,5 +26,10 @@ class Pasien extends Authenticatable
         $lastId++;
         $lastId = str_pad($lastId, 3, '0', STR_PAD_LEFT);
         return date('Ym') . '-' . $lastId;
+    }
+
+    public static function findByNoRM(string $noRM): ?Pasien
+    {
+        return self::where('no_rm', $noRM)->firstOrFail();
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DTOs\UserDTO;
 use App\Models\Dokter;
 use App\Models\Pasien;
+use Hash;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -29,10 +30,15 @@ class AuthController extends Controller
         if (session()->has('user')) {
             return redirect()->route('dashboard');
         }
+
         $type = $request->input('type');
         if ($type === 'admin') {
             if ($this->attemptLoginAdmin($request)) {
-                $user = new UserDTO('admin', 'admin');
+                $user = new UserDTO('admin', [
+                    'nama' => 'Admin',
+                    'username' => 'admin',
+                    'password' => 'admin',
+                ]);
                 session(['user' => $user]);
                 return redirect()->route('dashboard')
                     ->with('success', 'Selamat datang, Admin!');
@@ -44,7 +50,7 @@ class AuthController extends Controller
 
         if ($type === 'dokter') {
             if ($dokter = $this->attemptLoginDokter($request)) {
-                $user = new UserDTO('dokter', $dokter->id);
+                $user = new UserDTO('dokter', $dokter);
                 session(['user' => $user]);
                 return redirect()->route('dashboard')
                     ->with('success', 'Selamat datang, Dokter ' . $dokter->nama . '!');
@@ -56,7 +62,7 @@ class AuthController extends Controller
         }
 
         if ($pasien = $this->attemptLoginPasien($request)) {
-            $user = new UserDTO('pasien', $pasien->id);
+            $user = new UserDTO('pasien', $pasien);
             session(['user' => $user]);
             return redirect()->route('dashboard')
                 ->with('success', 'Selamat datang, Pasien ' . $pasien->nama . '!');
@@ -81,9 +87,10 @@ class AuthController extends Controller
 
     private function attemptLoginPasien(Request $request): ?Pasien
     {
-        return Pasien::where('nama', $request->input('nama'))
-            ->where('no_ktp', $request->input('no_ktp'))
+        $pasien = Pasien::where('no_rm', $request->input('no_rm'))
             ->first();
+
+        return Hash::check($request->input('password'), $pasien?->password) ? $pasien : null;
     }
 
     public function logout(): RedirectResponse
