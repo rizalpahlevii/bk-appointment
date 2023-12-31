@@ -67,7 +67,9 @@
                                             </tr>
                                         @endforeach
                                         </tbody>
+
                                     </table>
+                                    {{$obat->links()}}
                                 </div>
                             </div>
                         </div>

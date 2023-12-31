@@ -34,7 +34,7 @@ class AuthController extends Controller
         $type = $request->input('type');
         if ($type === 'admin') {
             if ($this->attemptLoginAdmin($request)) {
-                $user = new UserDTO('admin', [
+                $user = new UserDTO('admin', (object)[
                     'nama' => 'Admin',
                     'username' => 'admin',
                     'password' => 'admin',
@@ -80,9 +80,10 @@ class AuthController extends Controller
 
     private function attemptLoginDokter(Request $request): ?Dokter
     {
-        return Dokter::where('nama', $request->input('nama'))
-            ->where('no_hp', $request->input('no_hp'))
+        $dokter = Dokter::where('no_hp', $request->input('no_hp'))
             ->first();
+
+        return Hash::check($request->input('password'), $dokter?->password) ? $dokter : null;
     }
 
     private function attemptLoginPasien(Request $request): ?Pasien

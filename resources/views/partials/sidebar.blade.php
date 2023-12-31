@@ -15,7 +15,9 @@
                      alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Alexander Pierce</a>
+                <a href="#" class="d-block">
+                    {{session('user')->data->nama}}
+                </a>
             </div>
         </div>
 
@@ -37,7 +39,7 @@
                 @if(isAdmin())
                     <li class="nav-item">
                         <a href="{{route('obat.index')}}" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
+                            <i class="nav-icon fas fa-pills"></i>
                             <p>
                                 Obat
                             </p>
@@ -49,7 +51,7 @@
                 @if(isDokter())
                     <li class="nav-item">
                         <a href="{{route('periksa.index')}}" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
+                            <i class="nav-icon fas fa-stethoscope"></i>
                             <p>
                                 Periksa
                             </p>
@@ -57,7 +59,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="{{route('riwayat-pasien.index')}}" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
+                            <i class="nav-icon fas fa-hospital"></i>
                             <p>
                                 Riwayat Pasien
                             </p>

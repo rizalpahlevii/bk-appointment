@@ -9,7 +9,7 @@ class ObatController extends Controller
 {
     public function index()
     {
-        $obat = Obat::get();
+        $obat = Obat::paginate(10);
         return view('pages.obat.index', compact('obat'));
     }
 

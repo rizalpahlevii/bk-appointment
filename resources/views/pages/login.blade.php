@@ -77,15 +77,15 @@
                 @elseif ($type === "dokter")
                     <input type="hidden" name="type" value="dokter">
                     <div class="input-group mb-3">
-                        <input type="tel" class="form-control" placeholder="Nama" name="nama" required>
+                        <input type="tel" class="form-control" placeholder="No HP" name="no_hp" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
-                                <span class="fas fa-envelope"></span>
+                                <span class="fas fa-phone"></span>
                             </div>
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="No HP" name="no_hp" required>
+                        <input type="password" class="form-control" placeholder="Password" name="password" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
