@@ -22,6 +22,9 @@ class Pasien extends Authenticatable
         }
         $lastId = $lastPasien->no_rm;
         $lastId = explode('-', $lastId)[1];
+        if (!str_starts_with($lastId, date('Ym'))) {
+            return date('Ym') . '-001';
+        }
         $lastId = (int)$lastId;
         $lastId++;
         $lastId = str_pad($lastId, 3, '0', STR_PAD_LEFT);

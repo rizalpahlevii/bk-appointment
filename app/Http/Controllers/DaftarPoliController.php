@@ -42,7 +42,7 @@ class DaftarPoliController extends Controller
         } catch (Exception $e) {
             DB::rollBack();
             return redirect()->back()
-                ->withErrors(['error' => $e->getMessage()]);
+                ->with(['error' => $e->getMessage()]);
         }
     }
 }

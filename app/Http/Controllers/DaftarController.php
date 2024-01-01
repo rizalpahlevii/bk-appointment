@@ -6,6 +6,7 @@ use App\Models\Pasien;
 use DB;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class DaftarController extends Controller
 {
@@ -17,19 +18,23 @@ class DaftarController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => ['required'],
-            'alamat' => ['required'],
-            'no_hp' => ['required'],
-            'no_ktp' => ['required'],
+            'nama' => ['required', 'string', 'max:255'],
+            'alamat' => ['required', 'string', 'max:255'],
+            'no_hp' => ['required', Rule::unique('pasien', 'no_hp')],
+            'no_ktp' => ['required', Rule::unique('pasien', 'no_ktp')],
+            'password' => ['required', 'string', 'min:8'],
+            'password_konfirmasi' => ['required', 'same:password'],
         ]);
+
         DB::beginTransaction();
         try {
-            $pasien = Pasien::create([
+            Pasien::create([
                 'nama' => $request->nama,
                 'alamat' => $request->alamat,
                 'no_hp' => $request->no_hp,
                 'no_ktp' => $request->no_ktp,
                 'no_rm' => Pasien::generateRM(),
+                'password' => bcrypt($request->password),
             ]);
             DB::commit();
             return redirect()->back()
@@ -37,7 +42,7 @@ class DaftarController extends Controller
         } catch (Exception $e) {
             DB::rollBack();
             return redirect()->back()
-                ->withErrors(['error' => $e->getMessage()]);
+                ->with(['error' => $e->getMessage()]);
         }
     }
 }

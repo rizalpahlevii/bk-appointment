@@ -25,7 +25,7 @@ class PasienSeeder extends Seeder
                 'alamat' => $faker->address,
                 'no_ktp' => $faker->nik,
                 'no_hp' => $faker->phoneNumber,
-                'no_rm' => date('Ym') . sprintf('%03d', $i + 1),
+                'no_rm' => date('Ym') . '-' . sprintf('%03d', $i + 1),
             ];
         }
         Pasien::insert($data);

@@ -14,6 +14,7 @@
                         <div class="col-md-12">
                             <form action="{{route('daftar-poli.store')}}" method="post">
                                 @csrf
+                                
                                 <div class="mb-1">
                                     <label for="no_rm" class="form-label">Nomor Rekam Medis</label>
                                     <input type="text" class="form-control @error('no_rm') is-invalid @enderror"
