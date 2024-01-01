@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use App\DTOs\UserDTO;
 use App\Models\Dokter;
 use App\Models\Pasien;
+use App\Traits\AppConfig;
 use Hash;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
+    use AppConfig;
+
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
@@ -75,7 +78,8 @@ class AuthController extends Controller
 
     private function attemptLoginAdmin(Request $request): bool
     {
-        return $request->input('username') === 'admin' && $request->input('password') === 'admin';
+        return $request->input('username') === $this->getDefaultAdminUsername() &&
+            $request->input('password') === $this->getDefaultAdminPassword();
     }
 
     private function attemptLoginDokter(Request $request): ?Dokter
