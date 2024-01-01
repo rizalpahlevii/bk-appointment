@@ -28,7 +28,7 @@
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a href="{{route('dashboard')}}" class="nav-link">
+                    <a href="{{route('dashboard')}}" class="nav-link {{set_active(['dashboard'])}}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
@@ -38,7 +38,8 @@
 
                 @if(isAdmin())
                     <li class="nav-item">
-                        <a href="{{route('obat.index')}}" class="nav-link">
+                        <a href="{{route('obat.index')}}"
+                           class="nav-link {{set_active(['obat.index','obat.create','obat.edit'])}}">
                             <i class="nav-icon fas fa-pills"></i>
                             <p>
                                 Obat
@@ -46,7 +47,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('dokter.index')}}" class="nav-link">
+                        <a href="{{route('dokter.index')}}"
+                           class="nav-link {{set_active(['dokter.index','dokter.create','dokter.edit'])}}">
                             <i class="nav-icon fas fa-user-md"></i>
                             <p>
                                 Dokter
@@ -58,7 +60,7 @@
 
                 @if(isDokter())
                     <li class="nav-item">
-                        <a href="{{route('periksa.index')}}" class="nav-link">
+                        <a href="{{route('periksa.index')}}" class="nav-link {{set_active(['periksa.index'])}}">
                             <i class="nav-icon fas fa-stethoscope"></i>
                             <p>
                                 Periksa
@@ -66,7 +68,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('riwayat-pasien.index')}}" class="nav-link">
+                        <a href="{{route('riwayat-pasien.index')}}"
+                           class="nav-link {{set_active(['riwayat-pasien.index'])}}">
                             <i class="nav-icon fas fa-hospital"></i>
                             <p>
                                 Riwayat Pasien
