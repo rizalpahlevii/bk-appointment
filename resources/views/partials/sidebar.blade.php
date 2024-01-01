@@ -45,6 +45,14 @@
                             </p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{route('dokter.index')}}" class="nav-link">
+                            <i class="nav-icon fas fa-user-md"></i>
+                            <p>
+                                Dokter
+                            </p>
+                        </a>
+                    </li>
 
                 @endif
 

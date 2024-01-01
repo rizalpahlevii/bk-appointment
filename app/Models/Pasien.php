@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Pasien extends Authenticatable
@@ -34,5 +35,10 @@ class Pasien extends Authenticatable
     public static function findByNoRM(string $noRM): ?Pasien
     {
         return self::where('no_rm', $noRM)->firstOrFail();
+    }
+
+    public function daftarPoli(): HasMany
+    {
+        return $this->hasMany(DaftarPoli::class, 'id_pasien');
     }
 }

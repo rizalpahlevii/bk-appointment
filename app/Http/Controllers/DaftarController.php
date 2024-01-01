@@ -22,7 +22,7 @@ class DaftarController extends Controller
             'alamat' => ['required', 'string', 'max:255'],
             'no_hp' => ['required', Rule::unique('pasien', 'no_hp')],
             'no_ktp' => ['required', Rule::unique('pasien', 'no_ktp')],
-            'password' => ['required', 'string', 'min:8'],
+            'password' => ['required', 'min:8'],
             'password_konfirmasi' => ['required', 'same:password'],
         ]);
 

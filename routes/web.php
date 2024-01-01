@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DaftarController;
 use App\Http\Controllers\DaftarPoliController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DokterController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JsonController;
 use App\Http\Controllers\ObatController;
@@ -32,6 +33,7 @@ Route::post('daftar-poli', [DaftarPoliController::class, 'store'])->name('daftar
 Route::middleware(['my-auth'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('obat', ObatController::class);
+    Route::resource('dokter', DokterController::class);
     Route::get('riwayat', [RiwayatPasienController::class, 'index'])->name('riwayat-pasien.index');
     Route::get('periksa', [PeriksaController::class, 'index'])->name('periksa.index');
 });
