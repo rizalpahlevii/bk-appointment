@@ -69,17 +69,14 @@ class JadwalPeriksaSeeder extends Seeder
         $data = [];
 
         foreach ($dokter as $key => $row) {
-            $scheduleCount = random_int(1, $this->maxSchedulePerDoctor);
-            $days = $faker->randomElements($this->dayList, $scheduleCount);
-            foreach ($days as $day) {
-                $schedule = $faker->randomElement($this->scheduleList[$day]);
-                $data[] = [
-                    'id_dokter' => $row->id,
-                    'hari' => $day,
-                    'jam_mulai' => $schedule[0],
-                    'jam_selesai' => $schedule[1],
-                ];
-            }
+            $day = $faker->randomElement($this->dayList, 1);
+            $schedule = $faker->randomElement($this->scheduleList[$day]);
+            $data[] = [
+                'id_dokter' => $row->id,
+                'hari' => $day,
+                'jam_mulai' => $schedule[0],
+                'jam_selesai' => $schedule[1],
+            ];
         }
 
         JadwalPeriksa::insert($data);

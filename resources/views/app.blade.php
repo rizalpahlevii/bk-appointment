@@ -6,6 +6,7 @@
     <title>{{config('app.name')}}</title>
     <!-- Google Font: Source Sans Pro -->
     @include('partials.css')
+    @stack('css')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -56,5 +57,6 @@
 </div>
 <!-- ./wrapper -->
 @include('partials.js')
+@stack('js')
 </body>
 </html>

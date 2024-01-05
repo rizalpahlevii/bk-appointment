@@ -55,10 +55,10 @@
                                                 <td>{{ $item->keluhan }}</td>
                                                 <td>
                                                     @if($item->periksa()->exists())
-                                                        <a href=""
+                                                        <a href="{{ route('periksa.edit', $item->periksa->id) }}"
                                                            class="btn btn-sm btn-success">Detail</a>
                                                     @else
-                                                        <a href=""
+                                                        <a href="{{ route('periksa.show', $item->id) }}"
                                                            class="btn btn-sm btn-success">Periksa</a>
                                                     @endif
                                                 </td>
