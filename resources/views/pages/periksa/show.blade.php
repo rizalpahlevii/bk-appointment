@@ -91,10 +91,24 @@
                                             <label for="obat" class="form-label">Obat</label>
                                             <select name="obat[]" id="obat" class="form-control" multiple>
                                                 @foreach($obat as $item)
-                                                    <option value="{{$item->id}}">{{$item->nama_obat}}</option>
+                                                    <option value="{{$item->id}}" data-harga="{{$item->harga}}">
+                                                        {{$item->nama_obat}}</option>
                                                 @endforeach
                                             </select>
                                             @error('catatan')
+                                            <div class="invalid-feedback">
+                                                {{$message}}
+                                            </div>
+                                            @enderror
+                                        </div>
+                                        <div class="mb-1">
+                                            <label for="total_harga" class="form-label">Total Harga</label>
+                                            <input type="text"
+                                                   class="form-control @error('total_harga') is-invalid @enderror"
+                                                   id="total_harga" placeholder="Nomor Rekam Medis" name="total_harga"
+                                                   readonly
+                                                   value="150000">
+                                            @error('total_harga')
                                             <div class="invalid-feedback">
                                                 {{$message}}
                                             </div>
@@ -127,6 +141,15 @@
     <script>
         $(document).ready(function () {
             $('#obat').select2();
+            $('#obat').on('change', function () {
+                let biaya = 150000;
+                let harga = 0;
+                let obat = $(this).val();
+                obat.forEach(function (item) {
+                    harga += parseInt($('#obat option[value=' + item + ']').data('harga'));
+                });
+                $('#total_harga').val(harga + biaya);
+            });
         });
     </script>
 @endpush

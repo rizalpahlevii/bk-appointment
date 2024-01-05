@@ -47,7 +47,7 @@ class Pasien extends Authenticatable
         $dokterId
     ): Builder
     {
-        $dokter = Dokter::with(['daftarPoli' => function ($query) use ($dokterId) {
+        $dokter = Dokter::with(['daftarPoli' => function ($query) {
             $query->where('id_pasien', $this->id);
         }])->findOrFail($dokterId);
 
