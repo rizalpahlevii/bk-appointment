@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -40,5 +41,17 @@ class Pasien extends Authenticatable
     public function daftarPoli(): HasMany
     {
         return $this->hasMany(DaftarPoli::class, 'id_pasien');
+    }
+
+    public function riwayatPeriksaByDokter(
+        $dokterId
+    ): Builder
+    {
+        $dokter = Dokter::with(['daftarPoli' => function ($query) use ($dokterId) {
+            $query->where('id_pasien', $this->id);
+        }])->findOrFail($dokterId);
+
+        return Periksa::whereIn('id_daftar_poli', $dokter->daftarPoli->pluck('id'))
+            ->with('detailPeriksa.obat');
     }
 }

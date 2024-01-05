@@ -35,6 +35,7 @@ Route::middleware(['my-auth'])->group(function () {
     Route::resource('obat', ObatController::class);
     Route::resource('dokter', DokterController::class);
     Route::get('riwayat', [RiwayatPasienController::class, 'index'])->name('riwayat-pasien.index');
+    Route::get('riwayat/{pasienId}', [RiwayatPasienController::class, 'show'])->name('riwayat-pasien.show');
     Route::resource('periksa', PeriksaController::class)->only(['index', 'show', 'edit', 'update', 'store']);
 });
 

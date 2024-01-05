@@ -19,7 +19,7 @@ class PeriksaController extends Controller
          * @var Dokter $dokter
          */
         $dokter = session('user')->data;
-        $daftarPoli = $dokter->daftarPoli()->with('pasien', 'jadwal', 'periksa')->get();
+        $daftarPoli = $dokter->daftarPoli()->with('pasien', 'jadwal', 'periksa')->paginate(10);
         return view('pages.periksa.index', compact('daftarPoli'));
     }
 

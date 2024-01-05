@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Periksa</h1>
+                    <h1 class="m-0">Riwayat Pasien {{$pasien->nama}}</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -27,7 +27,7 @@
                     <div class="card">
                         <div class="card-header border-0">
                             <div class="d-flex justify-content-between">
-                                <h3 class="card-title">Data Periksa</h3>
+                                <h3 class="card-title">Data Riwayat Pasien</h3>
                             </div>
                         </div>
                         <div class="card-body">
@@ -37,37 +37,39 @@
                                         <thead>
                                         <tr>
                                             <th>No</th>
+                                            <th>Tanggal Periksa</th>
                                             <th>Nama Pasien</th>
-                                            <th>No RM Pasien</th>
-                                            <th>Waktu</th>
+                                            <th>Nama Dokter</th>
                                             <th>Keluhan</th>
-                                            <th>Aksi</th>
+                                            <th>Catatan</th>
+                                            <th>Obat</th>
+                                            <th>Biaya</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($daftarPoli as $item)
+                                        @foreach($riwayat as $item)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $item->pasien->nama }}</td>
-                                                <td>{{ $item->pasien->no_rm }}</td>
-                                                <td>{{ $item->jadwal->hari }}, {{ $item->jadwal->jam_mulai }}
-                                                    - {{ $item->jadwal->jam_selesai }}</td>
-                                                <td>{{ $item->keluhan }}</td>
+                                                <td>{{ $item->tgl_periksa }}</td>
+                                                <td>{{ $pasien->nama }}</td>
+                                                <td>{{ $dokter->nama }}</td>
+                                                <td>{{ $item->daftarPoli->keluhan }}</td>
+                                                <td>{{ $item->catatan }}</td>
                                                 <td>
-                                                    @if($item->periksa()->exists())
-                                                        <a href="{{ route('periksa.edit', $item->periksa->id) }}"
-                                                           class="btn btn-sm btn-success">Detail</a>
-                                                    @else
-                                                        <a href="{{ route('periksa.show', $item->id) }}"
-                                                           class="btn btn-sm btn-success">Periksa</a>
-                                                    @endif
+                                                    @foreach($item->detailPeriksa as $detail)
+                                                        <li>{{$detail->obat?->nama_obat}}
+                                                            {{$detail->obat?->kemasan}} </li>
+                                                    @endforeach
                                                 </td>
-                                            </tr>
+                                                <td>
+                                                    {{number_format($item->total_biaya, 0, ',', '.')}}
+                                                </td>
 
+                                            </tr>
                                         @endforeach
                                         </tbody>
                                     </table>
-                                    {{$daftarPoli->links()}}
+                                    {{$riwayat->links()}}
                                 </div>
                             </div>
                         </div>

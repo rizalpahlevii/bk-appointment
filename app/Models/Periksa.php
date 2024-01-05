@@ -32,7 +32,14 @@ class Periksa extends Model
 
     public function obat()
     {
-        return $this->belongsToMany(Obat::class, 'detail_periksa', 'id_periksa', 'id_obat')
-            ->withPivot('jumlah');
+        return $this->belongsToMany(Obat::class, 'detail_periksa', 'id_periksa', 'id_obat');
+    }
+
+    public function getTotalBiayaAttribute()
+    {
+        $biayaObat = $this->detailPeriksa->sum(function ($detailPeriksa) {
+            return $detailPeriksa->obat->harga * 1;
+        });
+        return $biayaObat + $this->biaya_periksa;
     }
 }

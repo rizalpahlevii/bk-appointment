@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 class Dokter extends Model
 {
-    use HasFactory;
+    use HasFactory, HasRelationships;
 
     public $timestamps = false;
 
@@ -30,6 +31,19 @@ class Dokter extends Model
         return $this->hasOne(JadwalPeriksa::class, 'id_dokter');
     }
 
+    /**
+     * Get all of the periksa for the Dokter
+     *
+     * @return HasManyThrough
+     */
+    public function pasien(): HasManyThrough
+    {
+        return $this->hasManyDeepFromRelations(
+            $this->daftarPoli(),
+            (new DaftarPoli)->pasien()
+        );
+    }
+
     public function daftarPoli(): HasManyThrough
     {
         return $this->hasManyThrough(
@@ -39,6 +53,6 @@ class Dokter extends Model
             'id_jadwal',
             'id',
             'id'
-        );
+        )->orderBy('daftar_poli.no_antrian', 'asc');
     }
 }

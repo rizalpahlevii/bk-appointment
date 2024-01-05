@@ -31,7 +31,40 @@
                             </div>
                         </div>
                         <div class="card-body">
-
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-bordered table-striped table-hover ">
+                                        <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Nama Pasien</th>
+                                            <th>No RM Pasien</th>
+                                            <th>Alamat</th>
+                                            <th>No KTP</th>
+                                            <th>No HP</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($pasien as $item)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $item->nama }}</td>
+                                                <td>{{ $item->no_rm }}</td>
+                                                <td>{{ $item->alamat }}</td>
+                                                <td>{{ $item->no_ktp }}</td>
+                                                <td>{{ $item->no_hp }}</td>
+                                                <td>
+                                                    <a href="{{route('riwayat-pasien.show', $item->id)}}"
+                                                       class="btn btn-sm btn-success btn-detail-pasien">Detail</a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                    {{$pasien->links()}}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
