@@ -6,6 +6,7 @@ use App\Http\Controllers\DaftarPoliController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DokterController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\JadwalPeriksaController;
 use App\Http\Controllers\JsonController;
 use App\Http\Controllers\ObatController;
 use App\Http\Controllers\PeriksaController;
@@ -34,6 +35,8 @@ Route::middleware(['my-auth'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('obat', ObatController::class);
     Route::resource('dokter', DokterController::class);
+    Route::resource('jadwal-periksa', JadwalPeriksaController::class);
+    Route::post('jadwal-periksa/{id}', [JadwalPeriksaController::class, 'switchStatus'])->name('jadwal-periksa.switch');
     Route::get('riwayat', [RiwayatPasienController::class, 'index'])->name('riwayat-pasien.index');
     Route::get('riwayat/{pasienId}', [RiwayatPasienController::class, 'show'])->name('riwayat-pasien.show');
     Route::resource('periksa', PeriksaController::class)->only(['index', 'show', 'edit', 'update', 'store']);

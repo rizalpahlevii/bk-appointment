@@ -14,7 +14,8 @@ class JadwalPeriksa extends Model
         'id_dokter',
         'hari',
         'jam_mulai',
-        'jam_selesai'
+        'jam_selesai',
+        'aktif'
     ];
 
     protected $table = 'jadwal_periksa';
@@ -76,4 +77,18 @@ class JadwalPeriksa extends Model
             ->exists();
 
     }
+
+    public function setAktif(): void
+    {
+        $this->aktif = 'Y';
+        $this->save();
+    }
+
+    public function setNonaktif(): void
+    {
+        $this->aktif = 'N';
+        $this->save();
+    }
+
+
 }

@@ -60,6 +60,15 @@
 
                 @if(isDokter())
                     <li class="nav-item">
+                        <a href="{{route('jadwal-periksa.index')}}"
+                           class="nav-link {{set_active(['jadwal-periksa.index'])}}">
+                            <i class="nav-icon fas fa-stethoscope"></i>
+                            <p>
+                                Jadwal Periksa
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{route('periksa.index')}}" class="nav-link {{set_active(['periksa.index'])}}">
                             <i class="nav-icon fas fa-stethoscope"></i>
                             <p>
