@@ -18,17 +18,18 @@ class DaftarPoli extends Model
         'no_antrian',
     ];
 
-    public static function generateNoAntrian(mixed $input)
+    public static function generateNoAntrian(mixed $input): int
     {
-        $lastAntrian = self::where('id_jadwal', $input)->orderBy('id', 'desc')->first();
-        if (!$lastAntrian) {
-            return 1;
-        }
-        $lastId = $lastAntrian->no_antrian;
-        $lastId = explode('-', $lastId)[1];
-        $lastId = (int)$lastId;
-        $lastId++;
-        return $lastId;
+        return 1;
+//        $lastAntrian = self::where('id_jadwal', $input)->orderBy('id', 'desc')->first();
+//        if (!$lastAntrian) {
+//            return 1;
+//        }
+//        $lastId = $lastAntrian->no_antrian;
+//        $lastId = explode('-', $lastId)[1];
+//        $lastId = (int)$lastId;
+//        $lastId++;
+//        return $lastId;
     }
 
     public function pasien()

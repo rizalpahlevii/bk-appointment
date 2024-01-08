@@ -43,6 +43,13 @@ class Pasien extends Authenticatable
         return $this->hasMany(DaftarPoli::class, 'id_pasien');
     }
 
+    public function riwayatPeriksa($pasienId)
+    {
+        return Periksa::whereIn('id_daftar_poli', DaftarPoli::where('id_pasien', $pasienId)->get()->pluck('id')->toArray())
+            ->with('detailPeriksa.obat', 'daftarPoli.jadwal.dokter')
+            ->get();
+    }
+
     public function riwayatPeriksaByDokter(
         $dokterId
     ): Builder

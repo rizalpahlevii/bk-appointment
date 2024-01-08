@@ -11,6 +11,7 @@ use App\Http\Controllers\JsonController;
 use App\Http\Controllers\ObatController;
 use App\Http\Controllers\PeriksaController;
 use App\Http\Controllers\RiwayatPasienController;
+use App\Http\Controllers\RiwayatPeriksaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,6 +33,7 @@ Route::get('daftar-poli', [DaftarPoliController::class, 'index'])->name('daftar-
 Route::post('daftar-poli', [DaftarPoliController::class, 'store'])->name('daftar-poli.store');
 
 Route::middleware(['my-auth'])->group(function () {
+    Route::get('riwayat-periksa', [RiwayatPeriksaController::class, 'index'])->name('riwayat-periksa.index');
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('obat', ObatController::class);
     Route::resource('dokter', DokterController::class);

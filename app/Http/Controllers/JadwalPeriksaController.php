@@ -82,11 +82,17 @@ class JadwalPeriksaController extends Controller
     {
         $data = JadwalPeriksa::findOrFail($id);
         if ($data->aktif === 'N') {
+            /**
+             * @var Dokter $dokter
+             */
+            $dokter = session('user')->data;
+            $dokter->jadwal()->whereNotIn('id', [$data->id])->update([
+                'aktif' => 'N'
+            ]);
             $data->update(['aktif' => 'Y']);
             return redirect()->route('jadwal-periksa.index')
                 ->with('success', 'Jadwal Periksa berhasil diaktifkan');
         }
-
         $data->update(['aktif' => 'N']);
         return redirect()->route('jadwal-periksa.index')
             ->with('success', 'Jadwal Periksa berhasil dinonaktifkan');

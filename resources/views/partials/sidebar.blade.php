@@ -36,6 +36,18 @@
                     </a>
                 </li>
 
+                @if(isPasien())
+                    <li class="nav-item">
+                        <a href="{{route('riwayat-periksa.index')}}"
+                           class="nav-link {{set_active(['riwayat-periksa.index','riwayat-periksa.create','riwayat-periksa.edit'])}}">
+                            <i class="nav-icon fas fa-pills"></i>
+                            <p>
+                                Riwayat Periksa
+                            </p>
+                        </a>
+                    </li>
+                @endif
+
                 @if(isAdmin())
                     <li class="nav-item">
                         <a href="{{route('obat.index')}}"
@@ -55,7 +67,6 @@
                             </p>
                         </a>
                     </li>
-
                 @endif
 
                 @if(isDokter())
