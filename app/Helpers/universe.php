@@ -3,7 +3,7 @@
 
 use App\Models\Dokter;
 use App\Models\Pasien;
-
+use Illuminate\Support\Facades\Route;
 if (!function_exists('getLoggedType')) {
     function getLoggedType()
     {
